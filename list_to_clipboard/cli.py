@@ -18,11 +18,6 @@ def parse_args():
         required=False,
     )
     parser.add_argument(
-        "--no-description",
-        action="store_true",
-        help="Indicates that the list has no description for the values. (default: %(default)s)",
-    )
-    parser.add_argument(
         "--description-separator",
         default="||",
         help="Text that separates the value from description. (default: %(default)s)",

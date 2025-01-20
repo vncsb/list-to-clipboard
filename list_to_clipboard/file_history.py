@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def add_entry(entry: Path, history_path: Path, max_entries: int):
+def add_history_entry(entry: Path, history_path: Path, max_entries: int):
     entry_line = str(entry.resolve()) + "\n"
 
     with open(history_path, "r+") as file:
@@ -21,5 +21,7 @@ def add_entry(entry: Path, history_path: Path, max_entries: int):
 def get_recent_file(path: Path):
     if path.is_file():
         with open(path, "r") as file:
-            return file.readlines()[-1].strip()
+            lines = file.readlines()
+            if len(lines) > 0:
+                return Path(lines[-1].strip())
     return None
