@@ -1,0 +1,16 @@
+[project]
+name = "list-to-clipboard"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pyperclip>=1.9.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+l2c = "list_to_clipboard.cli:main"
