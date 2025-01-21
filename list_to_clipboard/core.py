@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pyperclip
 
-from list_to_clipboard import (HISTORY_FILE, MAX_HISTORY, OPERATIONS, OPERATIONS_ID,
-                               SETTINGS_DIR, rofi)
+from list_to_clipboard import (HISTORY_FILE, MAX_HISTORY, OPERATIONS,
+                               OPERATIONS_ID, SETTINGS_DIR, rofi)
 from list_to_clipboard.file_history import add_history_entry, get_recent_file
 from list_to_clipboard.types import Entry, EntryList
 
@@ -34,22 +34,31 @@ def read_file(filename, desc_separator) -> EntryList:
     return list
 
 
-def handle_operation(operation_id):
+def handle_operation(operation_id, file_path):
     operation = OPERATIONS_ID.get(operation_id)
     match operation:
         case "select_file":
-            print("select")
-            pass
+            file = select_file()
+            if file:
+                main(file)
+            return
         case "add_entry":
-            print("add")
-            pass
+            _, value = rofi.read_input(
+                "New entry value", "The text that will be copied"
+            )
+            _, description = rofi.read_input(
+                "New entry description", "The searchable description"
+            )
+            with open(file_path, "a") as file:
+                file.write(value + "|||" + description + "\n")
+            main(file_path)
+            return
         case "edit_entry":
-            print("edit")
+            # TODO
             pass
         case "delete_entry":
-            print("delete")
+            # TODO
             pass
-    pass
 
 
 def main(
@@ -73,12 +82,14 @@ def main(
 
     entry_list.extend(OPERATIONS.values())
 
-    _, selected = rofi.run(entry_list)
+    return_code, selected = rofi.run(entry_list)
 
     if selected in OPERATIONS_ID.keys():
-        handle_operation(selected)
+        handle_operation(selected, file)
         return
 
     add_history_entry(file, HISTORY_FILE, MAX_HISTORY)
 
+    if return_code == 1:
+        return
     pyperclip.copy(selected)

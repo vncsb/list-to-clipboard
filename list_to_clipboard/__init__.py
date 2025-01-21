@@ -22,20 +22,20 @@ OPERATIONS: dict[str, Entry] = {
             "Add entry - Add an entry to this file",
         )
     ),
-    "edit_entry": Entry._make(
-        (
-            "39a138c9-9649-41af-8f66-fe754f3a7f05",
-            "Edit an entry in this file",
-            "Edit entry - Edit an entry in this file",
-        )
-    ),
-    "delete_entry": Entry._make(
-        (
-            "eb9cb004-0f37-4166-b57a-1dd7430a8e7e",
-            "Delete and entry in this file",
-            "Delete entry - Delete and entry in this file",
-        )
-    ),
+    # "edit_entry": Entry._make(
+    #     (
+    #         "39a138c9-9649-41af-8f66-fe754f3a7f05",
+    #         "Edit an entry in this file",
+    #         "Edit entry - Edit an entry in this file",
+    #     )
+    # ),
+    # "delete_entry": Entry._make(
+    #     (
+    #         "eb9cb004-0f37-4166-b57a-1dd7430a8e7e",
+    #         "Delete and entry in this file",
+    #         "Delete entry - Delete and entry in this file",
+    #     )
+    # ),
 }
 
 OPERATIONS_ID = {

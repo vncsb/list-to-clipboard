@@ -8,6 +8,16 @@ OPTION_START = "\0"
 OPTION_SEPARATOR = "\x1f"
 
 
+def read_input(prompt, placeholder):
+    theme_str = "entry {{ placeholder: \"{}\"; }} listview {{ enabled: false;}}".format(placeholder)
+    result = subprocess.run(
+        ["rofi", "-dmenu", "-p", prompt, "-theme-str", theme_str],
+        stdout=subprocess.PIPE,
+        universal_newlines=True
+    )
+    return result.returncode, result.stdout.strip()
+
+
 def file_browser():
     result = subprocess.run(
         [
@@ -43,7 +53,7 @@ def run(entries: EntryList):
         )
 
     result = subprocess.run(
-        ["rofi", "-dmenu"],
+        ["rofi", "-dmenu", "-i", "-no-custom", "-p", "Select entry"],
         input=input,
         stdout=subprocess.PIPE,
         universal_newlines=True,
